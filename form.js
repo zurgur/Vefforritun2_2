@@ -6,12 +6,14 @@ function form(req, res) {
   const data = {};
   res.render('form', { data });
 }
-function register(req, res){
-  console.log("register");
+function register(req, res) {
+  console.info('register');
+  const data = {};
+  res.render('form', { data });
 }
 
 router.get('/', form);
 
-router.post('submit', register);
+router.post('/register', register);
 
 module.exports = router;

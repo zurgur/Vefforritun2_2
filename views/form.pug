@@ -1,17 +1,17 @@
 extends layout
 
 block content
-  form(method='POST' action='/register')
-  div.form-group
-    label(for='Nafn') Nafn:
-    input#name.form-control(type='text', placeholder='first and last' name='name')
-  div.form-group
-    label(for='Netfang') Netfang:
-    input#email.form-control(type='email', placeholder='lalli@email.com' name='email')
-  div.form-group
-    label(for='Kennitala') Kennitala:
-    input#favoriteBook.form-control(type='text', placeholder='kenitala' name='Kennitala')
-  div.form-group
-    label(for='fjoldi') Fjöldi:
-    input#pw.form-control(type='number' name='fjoldi')
-  button.btn.btn-primary(type='submit') Skrá
+  form(method='post' action='/register')
+    div.form-group
+      label(for='Nafn') Nafn:
+      input#name.form-control(type='text', placeholder='first and last' name='name')
+    div.form-group
+      label(for='Netfang') Netfang:
+      input#email.form-control(type='email', placeholder='lalli@email.com' name='email')
+    div.form-group
+      label(for='Kennitala') Kennitala:
+      input#kennitala.form-control(type='text', placeholder='kenitala' name='kennitala')
+    div.form-group
+      label(for='fjoldi') Fjöldi:
+      input#fjoldi.form-control(type='number' name='fjoldi')
+    button.btn.btn-primary(type='submit') Skrá

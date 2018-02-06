@@ -16,6 +16,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', form);
 app.use('/admin', admin);
 
+
 function notFoundHandler(req, res, next) { // eslint-disable-line
   res.status(404).render('error', { title: '404' });
 }
