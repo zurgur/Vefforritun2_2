@@ -2,18 +2,42 @@ const express = require('express');
 
 const router = express.Router();
 
+const { check, validationResult } = require('express-validator/check');
+
+
 function form(req, res) {
   const data = {};
   res.render('form', { data });
 }
-function register(req, res) {
+function register(req, res) { // eslint-disable-line
   console.info('register');
-  const data = {};
-  res.render('form', { data });
 }
-
 router.get('/', form);
 
-router.post('/register', register);
+router.post(
+  '/register',
+  // validator
+  check('name').isLength({ min: 1 }).withMessage('Nafn má ekki vera tómt'),
+  check('email').isLength({ min: 1 }).withMessage('Netfang má ekki vera tómt'),
+  check('email').isEmail().withMessage('Netfang verður að vera netfang'),
+  check('ssn').isLength({ min: 1 }).withMessage('Kennitala má ekki vera tóm'),
+  check('ssn').matches(/^[0-9]{6}-?[0-9]{4}$/).withMessage('Kennitala verður að vera á formi 000000-0000'),
+
+  (req, res) => {
+    const {
+      name = '',
+      email = '',
+      ssn = '',
+    } = req.body;
+
+    const errors = validationResult(req);
+    console.info(errors);
+    if (!errors.isEmpty()) {
+      const errorMessages = errors.array().map(i => i.msg);
+    }
+    const data = {};
+    res.render('form', { data });
+  },
+);
 
 module.exports = router;
