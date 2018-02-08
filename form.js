@@ -6,8 +6,16 @@ const { check, validationResult } = require('express-validator/check');
 
 
 function form(req, res) {
-  const data = {};
-  res.render('form', { data });
+  const name = '';
+  const email = '';
+  const ssn = '';
+  const value = '';
+  res.render(
+    'form',
+    {
+      name, email, ssn, value,
+    },
+  );
 }
 function register(req, res) { // eslint-disable-line
   console.info('register');
@@ -15,8 +23,7 @@ function register(req, res) { // eslint-disable-line
 router.get('/', form);
 
 router.post(
-  '/register',
-  // validator
+  '/',
   check('name').isLength({ min: 1 }).withMessage('Nafn má ekki vera tómt'),
   check('email').isLength({ min: 1 }).withMessage('Netfang má ekki vera tómt'),
   check('email').isEmail().withMessage('Netfang verður að vera netfang'),
@@ -31,9 +38,9 @@ router.post(
     } = req.body;
 
     const errors = validationResult(req);
-    console.info(errors);
     if (!errors.isEmpty()) {
       const errorMessages = errors.array().map(i => i.msg);
+      console.info(errorMessages);
     }
     const data = {};
     res.render('form', { data });
