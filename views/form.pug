@@ -5,12 +5,22 @@ block content
     each val in values
       li= val
   form(method='POST' action='/')
-    label(for='name') Nafn:
-    input(type='text', placeholder='first and last' name='name')
-    label(for='email') Netfang:
-    input(type='email', placeholder='lalli@email.com' name='email')
-    label(for='ssn') Kennitala:
-    input(type='text', placeholder='kenitala' name='ssn')
-    label(for='fjoldi') Fjöldi:
-    input(type='number' name='fjoldi')
+    if info
+      label(for='name') Nafn:
+      input(type='text', placeholder='first and last' name='name' value=info.name)
+      label(for='email') Netfang:
+      input(type='email', placeholder='lalli@email.com' name='email' value=info.email)
+      label(for='ssn') Kennitala:
+      input(type='text', placeholder='kenitala' name='ssn' value=info.ssn)
+      label(for='fjoldi') Fjöldi:
+      input(type='number' name='fjoldi' value=info.fjoldi)
+    else
+      label(for='name') Nafn:
+      input(type='text', placeholder='first and last' name='name')
+      label(for='email') Netfang:
+      input(type='email', placeholder='lalli@email.com' name='email')
+      label(for='ssn') Kennitala:
+      input(type='text', placeholder='kenitala' name='ssn')
+      label(for='fjoldi') Fjöldi:
+      input(type='number' name='fjoldi')    
     button.btn.btn-primary(type='submit') Skrá
