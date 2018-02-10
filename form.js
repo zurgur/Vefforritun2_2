@@ -6,16 +6,8 @@ const { check, validationResult } = require('express-validator/check');
 
 
 function form(req, res) {
-  const name = '';
-  const email = '';
-  const ssn = '';
-  const value = '';
-  res.render(
-    'form',
-    {
-      name, email, ssn, value,
-    },
-  );
+  const data = [];
+  res.render('form', { values: data });
 }
 function register(req, res) { // eslint-disable-line
   console.info('register');
@@ -29,21 +21,24 @@ router.post(
   check('email').isEmail().withMessage('Netfang verður að vera netfang'),
   check('ssn').isLength({ min: 1 }).withMessage('Kennitala má ekki vera tóm'),
   check('ssn').matches(/^[0-9]{6}-?[0-9]{4}$/).withMessage('Kennitala verður að vera á formi 000000-0000'),
+  check('fjoldi').isInt().withMessage('fjöldi verður að vera heiltala'),
+  check('fjöldi').isLength({ min: 1 }).withMessage('tala má ekki vera tóm'),
 
   (req, res) => {
     const {
       name = '',
       email = '',
       ssn = '',
+      fjoldi = '',
     } = req.body;
 
+    let data = {};
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       const errorMessages = errors.array().map(i => i.msg);
-      console.info(errorMessages);
+      data = errorMessages;
     }
-    const data = {};
-    res.render('form', { data });
+    res.render('form', { values: data });
   },
 );
 

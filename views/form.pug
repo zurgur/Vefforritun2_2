@@ -1,6 +1,9 @@
 extends layout
 
 block content
+  ul
+    each val in values
+      li= val
   form(method='POST' action='/')
     label(for='name') Nafn:
     input(type='text', placeholder='first and last' name='name')
