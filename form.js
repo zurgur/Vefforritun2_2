@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 
 const { check, validationResult } = require('express-validator/check');
+const { matchedData, sanitize } = require('express-validator/filter');
 const xss = require('xss');
 
 const { Client } = require('pg');
@@ -73,12 +74,11 @@ router.post(
       data = errorMessages;
       res.render('form', { values: data, info: correctInfo });
     } else {
-      //correctInfo = xss(Object.values(correctInfo)[0]);
-      insert(Object.values(correctInfo));
+      correctInfo = xss(Object.values(correctInfo));
+      insert(correctInfo);
       res.render('confirm');
     }
   },
 );
-
 
 module.exports = router;
