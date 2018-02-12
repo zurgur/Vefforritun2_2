@@ -21,6 +21,8 @@
     "express": "^4.16.2",
     "express-session": "^1.15.6",
     "express-validator": "^4.3.0",
-    "pug": "^2.0.0-rc.4"
+    "pg": "^7.4.1",
+    "pug": "^2.0.0-rc.4",
+    "xss": "^0.3.7"
   }
 }

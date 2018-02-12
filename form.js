@@ -1,9 +1,43 @@
+
 const express = require('express');
 
 const router = express.Router();
 
 const { check, validationResult } = require('express-validator/check');
-const { matchedData, sanitize } = require('express-validator/filter');
+const xss = require('xss');
+
+const { Client } = require('pg');
+
+const connectionString = 'postgres://postgres:postgres@localhost/postgres';
+const query = 'INSERT INTO form(name, email, ssn, amount) VALUES($1, $2, $3, $4) RETURNING *';
+
+
+const client = new Client({
+  connectionString,
+});
+client.connect();
+
+async function select() {
+  try {
+    const res = await client.query('SELECT * FROM form');
+    console.info(res.rows);
+  } catch (e) {
+    console.error('Error selecting', e);
+  }
+
+  await client.end();
+}
+
+async function insert(values) {
+  try {
+    const res = await client.query(query, values);
+    console.info(res.rows);
+  } catch (err) {
+    console.error(err);
+  }
+
+  await client.end();
+}
 
 function form(req, res) {
   const data = [];
@@ -12,6 +46,7 @@ function form(req, res) {
 function register(req, res) { // eslint-disable-line
   console.info('register');
 }
+
 router.get('/', form);
 
 router.post(
@@ -25,12 +60,12 @@ router.post(
 
   (req, res) => {
     const {
-      name = '',
-      email = '',
-      ssn = '',
-      fjoldi = '',
+      name = '',// eslint-disable-line
+      email = '',// eslint-disable-line
+      ssn = '',// eslint-disable-line
+      fjoldi = '',// eslint-disable-line
     } = req.body;
-    const correctInfo = matchedData(req);
+    let correctInfo = matchedData(req);
     let data = {};
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -38,9 +73,12 @@ router.post(
       data = errorMessages;
       res.render('form', { values: data, info: correctInfo });
     } else {
+      //correctInfo = xss(Object.values(correctInfo)[0]);
+      insert(Object.values(correctInfo));
       res.render('confirm');
     }
   },
 );
+
 
 module.exports = router;
