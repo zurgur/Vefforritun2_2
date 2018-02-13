@@ -16,9 +16,9 @@ const query = 'INSERT INTO form(name, email, ssn, amount) VALUES($1, $2, $3, $4)
 const client = new Client({
   connectionString,
 });
-client.connect();
 
 async function select() { // eslint-disable-line
+  client.connect();
   try {
     const res = await client.query('SELECT * FROM form');
     console.info(res.rows);
@@ -30,6 +30,7 @@ async function select() { // eslint-disable-line
 }
 
 async function insert(values) {
+  client.connect();
   try {
     const res = await client.query(query, values);
     console.info(res.rows);
