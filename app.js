@@ -1,7 +1,7 @@
 const path = require('path');
 const express = require('express');
-const cookieParser = require('cookie-parser');
-const session = require('express-session');
+const cookieParser = require('cookie-parser'); // eslint-disable-line
+const session = require('express-session'); // eslint-disable-line
 
 const form = require('./form');
 const admin = require('./admin');

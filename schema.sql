@@ -3,5 +3,6 @@ CREATE TABLE form(
     name VARCHAR(64) NOT NULL,
     ssn text,
     date timestamp DEFAULT current_timestamp,
-    amount INT
+    amount INT,
+    email VARCHAR(64) NOT NULL
 );

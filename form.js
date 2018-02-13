@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 
 const { check, validationResult } = require('express-validator/check');
-const { matchedData, sanitize } = require('express-validator/filter');
+const { matchedData } = require('express-validator/filter');
 const xss = require('xss');
 
 const { Client } = require('pg');
@@ -18,7 +18,7 @@ const client = new Client({
 });
 client.connect();
 
-async function select() {
+async function select() { // eslint-disable-line
   try {
     const res = await client.query('SELECT * FROM form');
     console.info(res.rows);
