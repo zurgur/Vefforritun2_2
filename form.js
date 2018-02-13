@@ -76,6 +76,7 @@ router.post(
       res.render('form', { values: data, info: correctInfo });
     } else {
       correctInfo = xss(Object.values(correctInfo));
+      correctInfo = correctInfo.split(',');
       insert(correctInfo);
       res.render('confirm');
     }

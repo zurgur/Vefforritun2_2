@@ -2,5 +2,6 @@ block content
     table
         each val in values
             tr
-                th= val
+                each v in val
+                    th=v
             tr

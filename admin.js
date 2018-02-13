@@ -31,11 +31,12 @@ function checkLogin(req, res) {
 async function login(req, res) {
   const rawdata = await select();
   const len = rawdata.length;
+  // console.log(len);
   const data = [];
   for (let i = 0; i < len; i += 1) {
     data.push(Object.values(rawdata[i]));
   }
-  console.info(data);
+  // console.info(data);
   res.render('diplayInfo', { values: data });
 }
 
