@@ -11,7 +11,7 @@ const client = new Client({
 });
 
 async function select() { // eslint-disable-line
-  client.connect();
+  await client.connect();
   let res;
   try {
     res = await client.query('SELECT * FROM form');
