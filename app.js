@@ -27,7 +27,7 @@ app.use(session({
 }));
 
 
-async function login(req, res) {
+async function login(req, res) { // eslint-disable-line
   const data = {};
   return res.render('login', { data });
 }
@@ -39,7 +39,6 @@ function strat(username, password, done) {
       if (!user) {
         return done(null, false);
       }
-      // console.log(user,password);
       return users.comparePasswords(password, user);
     })
     .then(res => done(null, res))
@@ -75,7 +74,6 @@ app.use((req, res, next) => {
 
 app.use('/', form);
 app.use('/admin', admin);
-
 
 app.get('/login', (req, res) => {
   res.render('login');

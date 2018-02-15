@@ -2,32 +2,11 @@
 const express = require('express');
 
 const router = express.Router();
+const db = require('./database.js');
 
 const { check, validationResult } = require('express-validator/check');
 const { matchedData } = require('express-validator/filter');
 const xss = require('xss');
-
-const { Client } = require('pg');
-
-const connectionString = 'postgres://postgres:postgres@localhost/postgres';
-const query = 'INSERT INTO form(name, email, ssn, amount) VALUES($1, $2, $3, $4) RETURNING *';
-
-
-const client = new Client({
-  connectionString,
-});
-
-async function insert(values) {
-  client.connect();
-  try {
-    const res = await client.query(query, values);
-    console.info(res.rows);
-  } catch (err) {
-    console.error(err);
-  }
-
-  await client.end();
-}
 
 function form(req, res) {
   const data = [];
@@ -65,12 +44,10 @@ router.post(
     } else {
       correctInfo = xss(Object.values(correctInfo));
       correctInfo = correctInfo.split(',');
-      insert(correctInfo);
+      db.insertToDb(correctInfo);
       res.render('confirm');
     }
   },
 );
 
-// insert().catch(e => console.error(e));
-// select().catch(e => console.error(e));
 module.exports = router;

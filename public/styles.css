@@ -26,3 +26,11 @@ form {
   display: flex;
   flex-flow: column;
 }
+th, td {
+  padding: 15px;
+  text-align: left;
+  border: 1px solid lightgray;
+}
+table{
+  border-collapse: collapse;
+}
