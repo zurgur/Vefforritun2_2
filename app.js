@@ -3,7 +3,7 @@ const express = require('express');
 const session = require('express-session');
 const passport = require('passport');
 const { Strategy } = require('passport-local');
-
+const cookieParser = require('cookie-parser');
 const form = require('./form');
 const admin = require('./admin');
 const users = require('./users');
@@ -17,7 +17,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 
 const sessionSecret = 'leyndarmál';
-
+app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
 app.use(session({
   name: 'counter.sid',
   secret: sessionSecret,
@@ -27,6 +28,11 @@ app.use(session({
 
 app.use('/', form);
 app.use('/admin', admin);
+
+async function login(req, res) {
+  const data = {};
+  return res.render('login', { data });
+}
 
 function strat(username, password, done) {
   users
@@ -69,10 +75,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/login', (req, res) => {
-  res.render('login');
-});
-
 function ensureLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
@@ -80,10 +82,13 @@ function ensureLoggedIn(req, res, next) {
 
   return res.redirect('/login');
 }
+
+app.get('/login', login);
+
 app.post(
   '/login',
   passport.authenticate('local', {
-    failureRedirect: '/form',
+    failureRedirect: '/error',
   }),
   (req, res) => {
     res.redirect('/admin');
@@ -97,10 +102,8 @@ app.get('/logout', (req, res) => {
 
 app.get('/admin', ensureLoggedIn, (req, res) => {
   const data = [[1, 2, 3], [2, 3, 4]];
-  console.info('singedIn');
-  res.render(form, { values: data });
+  res.render('form', { values: data });
 });
-// paste
 
 function notFoundHandler(req, res, next) { // eslint-disable-line
   res.status(404).render('error', { title: '404' });

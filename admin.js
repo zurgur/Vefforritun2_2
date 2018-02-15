@@ -14,7 +14,7 @@ async function select() { // eslint-disable-line
   let res;
   try {
     res = await client.query('SELECT * FROM form');
-    console.info(res.rows);
+    // console.info(res.rows);
   } catch (e) {
     console.error('Error selecting', e);
   }
@@ -33,5 +33,5 @@ async function getInfo() {
   return data;
 }
 
-module.exports = getInfo();
+// module.exports = getInfo();
 module.exports = router;

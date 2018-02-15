@@ -17,18 +17,6 @@ const client = new Client({
   connectionString,
 });
 
-async function select() { // eslint-disable-line
-  client.connect();
-  try {
-    const res = await client.query('SELECT * FROM form');
-    console.info(res.rows);
-  } catch (e) {
-    console.error('Error selecting', e);
-  }
-
-  await client.end();
-}
-
 async function insert(values) {
   client.connect();
   try {
