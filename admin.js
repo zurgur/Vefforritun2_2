@@ -1,4 +1,3 @@
-
 const express = require('express');
 
 const router = express.Router();
@@ -24,23 +23,15 @@ async function select() { // eslint-disable-line
   return res.rows;
 }
 
-
-function checkLogin(req, res) {
-  res.render('logIn');
-}
-async function login(req, res) {
+async function getInfo() {
   const rawdata = await select();
   const len = rawdata.length;
-  // console.log(len);
   const data = [];
   for (let i = 0; i < len; i += 1) {
     data.push(Object.values(rawdata[i]));
   }
-  // console.info(data);
-  res.render('diplayInfo', { values: data });
+  return data;
 }
 
-router.get('/', checkLogin);
-router.post('/', login);
-
+module.exports = getInfo();
 module.exports = router;

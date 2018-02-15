@@ -58,7 +58,7 @@ router.post(
   check('email').isEmail().withMessage('Netfang verður að vera netfang'),
   check('ssn').isLength({ min: 1 }).withMessage('Kennitala má ekki vera tóm'),
   check('ssn').matches(/^[0-9]{6}-?[0-9]{4}$/).withMessage('Kennitala verður að vera á formi 000000-0000'),
-  check('fjoldi').isInt().withMessage('fjöldi verður að vera heiltala'),
+  check('fjoldi').isInt({ min: 1 }).withMessage('fjöldi verður að vera heiltala'),
 
   (req, res) => {
     const {
@@ -83,4 +83,6 @@ router.post(
   },
 );
 
+// insert().catch(e => console.error(e));
+// select().catch(e => console.error(e));
 module.exports = router;
