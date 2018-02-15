@@ -1,7 +1,6 @@
 const path = require('path');
 const express = require('express');
-const cookieParser = require('cookie-parser');
-const session = require('express-session');// eslint-disable-line
+const session = require('express-session');
 const passport = require('passport');
 const { Strategy } = require('passport-local');
 
@@ -17,10 +16,17 @@ app.set('view engine', 'pug');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 
+const sessionSecret = 'leyndarmál';
+
+app.use(session({
+  name: 'counter.sid',
+  secret: sessionSecret,
+  resave: false,
+  saveUninitialized: false,
+}));
+
 app.use('/', form);
 app.use('/admin', admin);
-
-// copy
 
 function strat(username, password, done) {
   users
@@ -90,7 +96,7 @@ app.get('/logout', (req, res) => {
 });
 
 app.get('/admin', ensureLoggedIn, (req, res) => {
-  const data = [[1,2,3],[2,3,4]];
+  const data = [[1, 2, 3], [2, 3, 4]];
   console.info('singedIn');
   res.render(form, { values: data });
 });
