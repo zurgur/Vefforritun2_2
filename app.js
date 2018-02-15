@@ -26,8 +26,6 @@ app.use(session({
   saveUninitialized: false,
 }));
 
-app.use('/', form);
-app.use('/admin', admin);
 
 async function login(req, res) {
   const data = {};
@@ -41,7 +39,7 @@ function strat(username, password, done) {
       if (!user) {
         return done(null, false);
       }
-
+      // console.log(user,password);
       return users.comparePasswords(password, user);
     })
     .then(res => done(null, res))
@@ -75,15 +73,13 @@ app.use((req, res, next) => {
   next();
 });
 
-function ensureLoggedIn(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
+app.use('/', form);
+app.use('/admin', admin);
 
-  return res.redirect('/login');
-}
 
-app.get('/login', login);
+app.get('/login', (req, res) => {
+  res.render('login');
+});
 
 app.post(
   '/login',
@@ -98,11 +94,6 @@ app.post(
 app.get('/logout', (req, res) => {
   req.logout();
   res.redirect('/');
-});
-
-app.get('/admin', ensureLoggedIn, (req, res) => {
-  const data = [[1, 2, 3], [2, 3, 4]];
-  res.render('form', { values: data });
 });
 
 function notFoundHandler(req, res, next) { // eslint-disable-line

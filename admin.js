@@ -9,8 +9,9 @@ const client = new Client({
   connectionString,
 });
 
+client.connect();
+
 async function select() { // eslint-disable-line
-  await client.connect();
   let res;
   try {
     res = await client.query('SELECT * FROM form');
@@ -33,5 +34,24 @@ async function getInfo() {
   return data;
 }
 
-// module.exports = getInfo();
+async function admin(req, res, next) {
+  console.log('einhvað shit');
+  const data = await getInfo();
+  res.send('diplayInfo');
+}
+
+
+function ensureLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+
+  return res.redirect('/login');
+}
+
+router.get('/', ensureLoggedIn, admin);
+
+router.use('/test', admin);
+router.get('test', admin);
+
 module.exports = router;
