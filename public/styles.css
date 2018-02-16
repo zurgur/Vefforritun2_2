@@ -20,11 +20,13 @@ body {
   color: #333;
   display: flex;
   justify-content: center;
+  flex-flow: column;
 }
 
 form {
   display: flex;
   flex-flow: column;
+  justify-content: center;
 }
 th, td {
   padding: 15px;
@@ -33,4 +35,35 @@ th, td {
 }
 table{
   border-collapse: collapse;
+}
+input{
+  margin: auto;
+  padding: 2px;
+  width: 25%;
+}
+button{
+  margin: auto;
+  padding: 1px;
+  display: block;
+  font-weight: bold;
+}
+label{
+  margin: auto;
+  padding: 0px;
+  display: block;
+  font-weight: bold;
+}
+a{
+  margin: auto;
+  padding: 0px;
+  display: block;
+  font-weight: bold;
+}
+ul{
+  margin: auto;
+  padding: 0px;
+  display: block;
+  font-weight: bold;
+  list-style: none;
+  padding: 20px;
 }

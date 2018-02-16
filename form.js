@@ -10,7 +10,12 @@ const xss = require('xss');
 
 function form(req, res) {
   const data = [];
-  res.render('form', { values: data });
+  const userinn = req.user;
+  if (userinn) {
+    userinn.password = '';
+    userinn.id = '';
+  }
+  res.render('form', { values: data, user: userinn });
 }
 function register(req, res) { // eslint-disable-line
   console.info('register');
@@ -40,6 +45,7 @@ router.post(
     if (!errors.isEmpty()) {
       const errorMessages = errors.array().map(i => i.msg);
       data = errorMessages;
+      console.info(req.user);
       res.render('form', { values: data, info: correctInfo });
     } else {
       correctInfo = xss(Object.values(correctInfo));

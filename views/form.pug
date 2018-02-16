@@ -26,3 +26,8 @@ block content
     button.btn.btn-primary(type='submit') Skrá
   br
   a(href='/admin') inskráning
+  if user
+    div(class='notandi')
+      ul
+        each val in user
+          li= val
