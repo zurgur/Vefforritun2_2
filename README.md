@@ -1,6 +1,7 @@
 # Verkefni 2
 
 Útfæra skal Express vefþjón sem birtir skráningar form og hefur „stjórnsíðu“ þar sem hægt er að skoða allar skráningar.
+## skóð á vefsíðu: https://veff2.herokuapp.com/
 
 ## Skráningar form
 
