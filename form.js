@@ -11,7 +11,6 @@ const xss = require('xss');
 function form(req, res) {
   const data = [];
   const userinn = res.locals;
-  console.log(userinn.user);
   res.render('form', { values: data, user: userinn.user });
 }
 function register(req, res) { // eslint-disable-line
