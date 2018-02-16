@@ -76,13 +76,13 @@ app.use('/', form);
 app.use('/admin', admin);
 
 app.get('/login', (req, res) => {
-  res.render('login');
+  res.render('logIn');
 });
 
 app.post(
   '/login',
   passport.authenticate('local', {
-    failureRedirect: '/form',
+    failureRedirect: '/error',
   }),
   (req, res) => {
     res.redirect('/admin');
