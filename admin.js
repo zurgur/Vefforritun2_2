@@ -47,8 +47,6 @@ async function vista(req, res) {
   }
 }
 
-// router.get('/downlod', vista);
-
 router.get('/', ensureLoggedIn, admin);
 router.get('/downlod', ensureLoggedIn, vista);
 

@@ -7,7 +7,6 @@ const cookieParser = require('cookie-parser');
 const form = require('./form');
 const admin = require('./admin');
 const users = require('./users');
-const db = require('./database.js');
 
 const app = express();
 
