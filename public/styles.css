@@ -28,45 +28,51 @@ form {
   flex-flow: column;
   justify-content: center;
 }
-th, td {
+
+th,
+td {
   padding: 15px;
   text-align: left;
   border: 1px solid lightgray;
 }
-table{
+
+table {
   border-collapse: collapse;
 }
-input{
+
+input {
   margin: auto;
   padding: 2px;
   width: 25%;
 }
-button{
+
+button {
   margin: auto;
   padding: 1px;
   display: block;
   font-weight: bold;
 }
-label{
+
+label {
   margin: auto;
-  padding: 0px;
   display: block;
   font-weight: bold;
 }
-a{
+
+a {
   margin: auto;
-  padding: 0px;
   display: block;
   font-weight: bold;
 }
-ul{
+
+ul {
   margin: auto;
-  padding: 0px;
   display: block;
   font-weight: bold;
   list-style: none;
   padding: 20px;
 }
-p{
+
+p {
   font-weight: lighter;
 }
