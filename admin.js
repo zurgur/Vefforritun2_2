@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 const database = require('./database.js');
-const csv = require('express-csv');
+const csv = require('express-csv'); // eslint-disable-line
 
 async function getInfo() {
   const rawdata = await database.selectfromDb();
@@ -47,9 +47,10 @@ async function vista(req, res) {
   }
 }
 
-router.get('/downlod', vista);
+// router.get('/downlod', vista);
 
 router.get('/', ensureLoggedIn, admin);
+router.get('/downlod', ensureLoggedIn, vista);
 
 router.use('/test', admin);
 router.get('test', admin);
