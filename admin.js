@@ -50,7 +50,4 @@ async function vista(req, res) {
 router.get('/', ensureLoggedIn, admin);
 router.get('/downlod', ensureLoggedIn, vista);
 
-router.use('/test', admin);
-router.get('test', admin);
-
 module.exports = router;
