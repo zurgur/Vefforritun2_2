@@ -10,12 +10,9 @@ const xss = require('xss');
 
 function form(req, res) {
   const data = [];
-  const userinn = req.user;
-  if (userinn) {
-    userinn.password = '';
-    userinn.id = '';
-  }
-  res.render('form', { values: data, user: userinn });
+  const userinn = res.locals;
+  console.log(userinn.user);
+  res.render('form', { values: data, user: userinn.user });
 }
 function register(req, res) { // eslint-disable-line
   console.info('register');
@@ -31,7 +28,6 @@ router.post(
   check('ssn').isLength({ min: 1 }).withMessage('Kennitala má ekki vera tóm'),
   check('ssn').matches(/^[0-9]{6}-?[0-9]{4}$/).withMessage('Kennitala verður að vera á formi 000000-0000'),
   check('fjoldi').isInt({ min: 1 }).withMessage('fjöldi verður að vera heiltala'),
-
   (req, res) => {
     const {
       name = '',// eslint-disable-line
@@ -45,7 +41,6 @@ router.post(
     if (!errors.isEmpty()) {
       const errorMessages = errors.array().map(i => i.msg);
       data = errorMessages;
-      console.info(req.user);
       res.render('form', { values: data, info: correctInfo });
     } else {
       correctInfo = xss(Object.values(correctInfo));

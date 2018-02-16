@@ -1,6 +1,6 @@
 const { Client } = require('pg');
 
-const connectionString = 'postgres://postgres:postgres@localhost/postgres';
+const connectionString = process.env.DATABASE_URL || 'postgres://postgres:postgres@localhost/postgres';
 
 const query = 'INSERT INTO form(name, email, ssn, amount) VALUES($1, $2, $3, $4) RETURNING *';
 
@@ -31,9 +31,6 @@ async function select() { // eslint-disable-line
   await client.end();
   return res.rows;
 }
-
-// insert().catch(e => console.error(e));
-// select().catch(e => console.error(e));
 
 module.exports = {
   selectfromDb: select,

@@ -27,7 +27,9 @@ block content
   br
   a(href='/admin') inskráning
   if user
-    div(class='notandi')
-      ul
-        each val in user
-          li= val
+    ul(class='notandi' name='notandi')
+      p notenda nafn:
+      li= user.username
+      p nafn:
+      li= user.name
+      
