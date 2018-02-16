@@ -4,8 +4,6 @@ const connectionString = process.env.DATABASE_URL || 'postgres://postgres:postgr
 
 const query = 'INSERT INTO form(name, email, ssn, amount) VALUES($1, $2, $3, $4) RETURNING *';
 
-const cl = new Client({ connectionString });
-
 async function insert(values) {
   const client = new Client({ connectionString });
   await client.connect();
